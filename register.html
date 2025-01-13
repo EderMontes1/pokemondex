@@ -1,83 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PokemonDex</title>
-   <link rel="stylesheet" href="./styles/sytle_register.css">
+    <link rel="stylesheet" href="./styles/sytle_register.css">
 </head>
-
 
 <body>
 
-  <!--Encabezado-->
-  <header id="navbar">
-    <div class="container_nav logo_nav_container">
+    <!--Encabezado-->
+    <header id="navbar">
+        <div class="container_nav logo_nav_container">
 
-        <img class="logo_navbar" src="./styles/pokeball.png" alt="" width="80" height="80">
+            <img class="logo_navbar" src="./styles/pokeball.png" alt="" width="80" height="80">
 
-        <img class="icono_menu" id="icono_menu" src="./pics/menu.png" alt="" width="45" height="45">
-        <!--<span class="ver_menu">Ver menú</span>Este es el boton de menu-->
+            <img class="icono_menu" id="icono_menu" src="./styles/pokeball.png" alt="" width="45" height="45">
+            <!--<span class="ver_menu">Ver menú</span>Este es el boton de menu-->
 
-        <!--Menu-->
-        <nav class="nav_menu" id="nav_menu">
-            <ul class="nav_list" id="nav_list">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#patreon">Patreon</a></li>
-                <li><a href="#entrar">Entrar</a></li>
-                <li><a href="#registro">Registro</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
+            <!--Menu-->
+            <nav class="nav_menu" id="nav_menu">
+                <ul class="nav_list" id="nav_list">
+                    <li><a href="./index.html">Inicio</a></li>
+                    <li><a href="#patreon">Patreon</a></li>
+                    <li><a href="./login.html">Entrar</a></li>
+                    <li><a href="./register.html">Registro</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
 
     <h1>Registro</h1>
 
-<!-- Formulario Registro -->
-<div class="container-register">
-    
-    <form class="form">
-        <p class="title">Pokemon Dex </p>
-        <p class="message">Registrate ahora para tener acceso. </p>
-            
+    <!-- Formulario Registro -->
+    <div class="container-register">
+
+        <form class="form">
+            <p class="title">Pokemon Dex </p>
+            <p class="message">Registrate ahora para tener acceso. </p>
+
             <label>
-                <input required="" placeholder="" type="text" class="input">
+                <input id="username" placeholder="" type="text" class="input">
                 <span>Nombre de usuario</span>
             </label>
-    
-             
-                
-        <label>
-            <input required="" placeholder="" type="email" class="input">
-            <span>Email</span>
-        </label> 
-            
-        <label>
-            <input required="" placeholder="" type="password" class="input">
-            <span>Contraseña</span>
-        </label>
-        <label>
-            <input required="" placeholder="" type="password" class="input">
-            <span>Confirma contraseña</span>
-        </label>
-        <button class="submit">Enviar</button>
-        <p class="signin">Ya tienes una cuenta? <a href="./login.html">Ingresa</a> </p>
-    </form>
-</div>
 
+            <label>
+                <input id="email" placeholder="" type="email" class="input">
+                <span>Email</span>
+            </label>
 
+            <label>
+                <input id="password" placeholder="" type="password" class="input">
+                <span>Contraseña</span>
+            </label>
+            <label>
+                <input id="confirmpassword" placeholder="" type="password" class="input">
+                <span>Confirma contraseña</span>
+            </label>
+            <button class="submit">Enviar</button>
+            <p class="signin">Ya tienes una cuenta? <a href="./login.html">Ingresa</a> </p>
+        </form>
+    </div>
 
     <div class="text-apoyo-index">
         <span>Si deseas apoyar este proyecto invitame un cafecito por Paypal</span>
 
     </div>
 
-    
+<script src="./scripts/register.js"></script>
 </body>
 
+<!-- Footer -->
 <footer>
-    Ing. Eder Montes 2025 | V. 1.0 
+    Ing. Eder Montes 2025 | V. 1.0
     <img src="./styles/pokeball.png" height="18" width="18">
 </footer>
 
