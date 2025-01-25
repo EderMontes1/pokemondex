@@ -16,7 +16,7 @@ document.querySelector('.form').addEventListener('submit', async (event) => {
         const result = await response.json();
 
         if (response.ok) {
-            alert('Inicio de sesión exitoso');
+            window.location.href = 'main.html'
             // Aquí puedes guardar el token en el almacenamiento local o en cookies
             localStorage.setItem('token', result.token);
         } else {

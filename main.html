@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokemonDex</title>
+   <link rel="stylesheet" href="./styles/style_main.css">
+</head>
+
+
+<body>
+
+
+    <!--Encabezado-->
+    <header id="navbar">
+      <div class="container_nav logo_nav_container">
+  
+          <img class="logo_navbar" src="./styles/pokeball.png" alt="" width="80" height="80">
+  
+          <img class="icono_menu" id="icono_menu" src="./pics/menu.png" alt="" width="45" height="45">
+          <!--<span class="ver_menu">Ver menú</span>Este es el boton de menu-->
+  
+          <!--Menu-->
+          <nav class="nav_menu" id="nav_menu">
+              <ul class="nav_list" id="nav_list">
+                  <li><a href="./index.html">Inicio</a></li>
+                  <li><a href="#patreon">Patreon</a></li>
+                  <li><a href="./login.html">Entrar</a></li>
+                  <li><a href="./register.html">Registro</a></li>
+              </ul> 
+          </nav>
+      </div>
+  </header>
+
+    <h1>PokemonDex</h1>
+
+    <main class="w-full max-w-6xl mt-6 p-4">
+        <!-- User Info -->
+        <div class="bg-white p-4 shadow-md rounded-lg mb-6">
+            <h2 class="text-xl font-bold">Bienvenido, <span id="username">User</span>!</h2>
+        </div>
+
+        <!-- Progress Table -->
+        <div class="bg-white p-4 shadow-md rounded-lg mb-6">
+            <h3 class="text-lg font-semibold mb-4">Progreso del Juego</h3>
+            <table class="table-progress">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border border-gray-300 p-2">#</th>
+                        <th class="border border-gray-300 p-2">Pokemon</th>
+                        <th class="border border-gray-300 p-2">Generación</th>
+                        <th class="border border-gray-300 p-2">Capturados</th>
+                        <th class="border border-gray-300 p-2">Edición</th>
+                        <th class="border border-gray-300 p-2">Fecha Inicio</th>
+                        <th class="border border-gray-300 p-2">Fecha Final</th>
+                    </tr>
+                </thead>
+                <tbody id="progress-table-body">
+                    <!-- Dynamic Rows Inserted Here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pokemon List -->
+        <div class="bg-white p-4 shadow-md rounded-lg">
+            <h3 class="text-lg font-semibold mb-4">Pokemon List</h3>
+            <div class="grid grid-cols-5 gap-4" id="pokemon-list">
+                <!-- Dynamic Pokemon Cards Inserted Here -->
+            </div>
+        </div>
+    </main>
+
+   <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./scripts/apipokemon.js"></script>
+</body>
+
+<footer>
+    Ing. Eder Montes 2025 | V. 1.0 
+    <img src="./styles/pokeball.png" height="18" width="18">
+</footer>
+
+</html>
