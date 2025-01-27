@@ -87,4 +87,34 @@ router.post('/login', async (req, res) => {
     }
 });
 
+
+
+// Middleware para verificar el token JWT
+const authenticateToken = (req, res, next) => {
+    const token = req.headers['authorization']?.split(' ')[1]; // Obtenemos el token del header
+    if (!token) return res.sendStatus(401); // Si no hay token, respondemos con 401
+
+    jwt.verify(token, JWT_SECRET, (err, user) => { // Verificamos el token
+        if (err) return res.sendStatus(403); // Si el token es inválido, respondemos con 403
+        req.user = user; // Si el token es válido, asignamos el usuario a la request
+        next();
+    });
+};
+
+// Endpoint para obtener los datos del usuario autenticado
+router.get('/user', authenticateToken, async (req, res) => {
+    try {
+        // Buscamos al usuario por el ID que está en el payload del token
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        res.json({ username: user.username }); // Devolvemos el nombre de usuario
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        res.status(500).send('Internal server error');
+    }
+});
+
+
 module.exports = router;
