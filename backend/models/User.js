@@ -19,16 +19,16 @@ const UserSchema = new mongoose.Schema({
     },
     pokemonProgress: [
         {
-            gameEdition: String,
-            startDate: Date,
-            endDate: Date,
-            totalDays: Number,
-            hoursPlayed: Number,
-            realDays: Number,
-            averageHoursPerDay: Number,
-            capturedPokemon: Number,
-            capturedPercentage: Number,
-            capturedPokemonShiny: Number,
+            gameEdition: String, //La edicion del juego (se introduce con un select)
+            startDate: Date, //La fecha en la que el usuario comenzo a jugar (Se introduce Manual)
+            endDate: Date, //La fecha en la que el usuario finalizo de jugar (Se introduce Manual)
+            totalDays: Number, //Total de dias jugados endDate- StartDate (Se calcula automaticamente)
+            hoursPlayed: Number, //Total de horas jugadas (Se introduce manual)
+            realDays: Number,   //Total de dias jugados en la vida real (hoursPlayed/24) (Se calcula automaticamente)
+            averageHoursPerDay: Number, //Promedio de horas jugadas por dia (hoursPlayed/realDays) (Se calcula automaticamente)
+            capturedPokemon: Number, //Total de pokemon capturados (Se cuenta cada pokemon capturado en el listado pokemon (apioficial))
+            capturedPercentage: Number,     //Porcentaje de pokemon capturados (capturedPokemon/151) (Se calcula automaticamente)   
+            capturedPokemonShiny: Number,   //Total de pokemon shiny capturados (Se cuenta cada pokemon shiny capturado en el listado pokemon (apioficial))        
         },
     ],
 }, {
