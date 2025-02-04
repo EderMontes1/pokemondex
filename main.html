@@ -40,31 +40,50 @@
             <h2 class="text-xl font-bold">Bienvenido, <span id="username">User</span>!</h2>
         </div>
 
-        <!-- Progress Table -->
-        <div class="bg-white p-4 shadow-md rounded-lg mb-6">
-            <h3 class="text-lg font-semibold mb-4">Progreso del Juego</h3>
-            <table class="table-progress">
-                <thead>
-                    <tr class="bg-gray-200">
-                        <th class="border border-gray-300 p-2">#</th>
-                        <th class="border border-gray-300 p-2">Pokemon</th>
-                        <th class="border border-gray-300 p-2">Generación</th>
-                        <th class="border border-gray-300 p-2">Capturados</th>
-                        <th class="border border-gray-300 p-2">Edición</th>
-                        <th class="border border-gray-300 p-2">Fecha Inicio</th>
-                        <th class="border border-gray-300 p-2">Fecha Final</th>
-                    </tr>
-                </thead>
-                <tbody id="progress-table-body">
-                    <!-- Dynamic Rows Inserted Here -->
-                </tbody>
-            </table>
-        </div>
+  <!-- Select para elegir la edición del juego -->
+  <div class="game-select">
+    <h3>Selecciona una edición del juego</h3>
+    <select id="gameEditionSelect">
+        <option value="Blue">Pokémon Blue</option>
+        <option value="Red">Pokémon Red</option>
+        <option value="Yellow">Pokémon Yellow</option>
+    </select>
+</div>
+
+ <!-- Botón para guardar progreso -->
+ <button id="saveProgressBtn">Guardar Progreso</button>
+
+<!-- Tabla de progreso -->
+<div class="progress-table">
+    <h3>Progreso del Juego</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Edición</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Finalización</th>
+                <th>Días Totales</th>
+                <th>Horas Jugadas</th>
+                <th>Días Reales</th>
+                <th>Horas Promedio por Día</th>
+                <th>Pokémon Capturados</th>
+                <th>Porcentaje de Pokémon Capturados</th>
+                <th>Pokémon Shiny Capturados</th>
+            </tr>
+        </thead>
+        <tbody id="progress-table-body">
+            <!-- Fila dinámica de progreso del juego -->
+            <tr>
+               
+            </tr>
+        </tbody>
+    </table>
+</div>
 
         <!-- Pokemon List -->
-        <div class="bg-white p-4 shadow-md rounded-lg">
-            <h3 class="text-lg font-semibold mb-4">Pokemon List</h3>
-            <div class="grid grid-cols-5 gap-4" id="pokemon-list">
+        <div class="pokemon-list">
+            <h3>Pokemon List</h3>
+            <div id="pokemon-list">
                 <!-- Dynamic Pokemon Cards Inserted Here -->
             </div>
         </div>
@@ -73,6 +92,9 @@
    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./scripts/apipokemon.js"></script>
+    <script src="./scripts/progreso.js"></script>
+
+   
 </body>
 
 <footer>

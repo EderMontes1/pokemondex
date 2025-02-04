@@ -116,14 +116,92 @@ h1{
   width: 100%;
 }
 
-.table-progress{
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 5rem;
-
+/* Estilos generales de la tabla */
+.progress-table {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow-x: auto; /* Para hacerla responsive */
 }
+
+.progress-table h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+/* Estilos de la tabla */
+.progress-table table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px; /* Ancho mínimo para evitar compresión */
+}
+
+/* Encabezados de la tabla */
+.progress-table th {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 3px solid #2980b9;
+}
+
+/* Filas de la tabla */
+.progress-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ecf0f1;
+  color: #34495e;
+}
+
+/* Efecto hover para filas */
+.progress-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Estilos para el select de ediciones */
+.game-select {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.game-select h3 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+#gameEditionSelect {
+  padding: 8px 12px;
+  border: 2px solid #bdc3c7;
+  border-radius: 6px;
+  width: 200px;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+/* Botón de guardar progreso */
+#saveProgressBtn {
+  background-color: #27ae60;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#saveProgressBtn:hover {
+  background-color: #219a52;
+}
+
+
+
 
 
 #pokemon-list {

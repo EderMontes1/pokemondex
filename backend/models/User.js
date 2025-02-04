@@ -7,49 +7,108 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        trim: true,        // Elimina espacios en blanco al inicio/final
+        minlength: 3,      // Longitud mínima de 3 caracteres
     },
     email: {
         type: String,
         required: true,
         unique: true,
+        trim: true,
+        lowercase: true,   // Guarda el email en minúsculas
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Por favor, ingresa un email válido'],
     },
     password: {
         type: String,
         required: true,
+        minlength: 3,      // Longitud mínima de 6 caracteres
     },
     pokemonProgress: [
         {
-            gameEdition: String, //La edicion del juego (se introduce con un select)
-            startDate: Date, //La fecha en la que el usuario comenzo a jugar (Se introduce Manual)
-            endDate: Date, //La fecha en la que el usuario finalizo de jugar (Se introduce Manual)
-            totalDays: Number, //Total de dias jugados endDate- StartDate (Se calcula automaticamente)
-            hoursPlayed: Number, //Total de horas jugadas (Se introduce manual)
-            realDays: Number,   //Total de dias jugados en la vida real (hoursPlayed/24) (Se calcula automaticamente)
-            averageHoursPerDay: Number, //Promedio de horas jugadas por dia (hoursPlayed/realDays) (Se calcula automaticamente)
-            capturedPokemon: Number, //Total de pokemon capturados (Se cuenta cada pokemon capturado en el listado pokemon (apioficial))
-            capturedPercentage: Number,     //Porcentaje de pokemon capturados (capturedPokemon/151) (Se calcula automaticamente)   
-            capturedPokemonShiny: Number,   //Total de pokemon shiny capturados (Se cuenta cada pokemon shiny capturado en el listado pokemon (apioficial))        
+            gameEdition: {
+                type: String,
+                required: true,
+            },  // La edición del juego (se introduce con un select)
+            
+            startDate: {
+                type: Date,
+                required: true,
+            },  // Fecha en la que el usuario comenzó a jugar (se introduce manual)
+            
+            endDate: {
+                type: Date,
+                required: true,
+                validate: {
+                    validator: function(value) {
+                        return value >= this.startDate;
+                    },
+                    message: 'La fecha de finalización debe ser posterior a la fecha de inicio.',
+                },
+            },  // Fecha en la que el usuario finalizó de jugar (se introduce manual)
+            
+            hoursPlayed: {
+                type: Number,
+                required: true,
+                min: 0,
+            },  // Total de horas jugadas (se introduce manual)
+            
+            totalDays: {
+                type: Number,
+                default: function() {
+                    return Math.ceil((this.endDate - this.startDate) / (1000 * 60 * 60 * 24));
+                },
+            },  // Total de días jugados (endDate - startDate) - Se calcula automáticamente
+            
+            realDays: {
+                type: Number,
+                default: function() {
+                    return Math.ceil(this.hoursPlayed / 24);
+                },
+            },  // Total de días jugados en la vida real (hoursPlayed/24) - Se calcula automáticamente
+            
+            averageHoursPerDay: {
+                type: Number,
+                default: function() {
+                    return this.realDays > 0 ? this.hoursPlayed / this.realDays : 0;
+                },
+            },  // Promedio de horas jugadas por día (hoursPlayed/realDays) - Se calcula automáticamente
+            
+            capturedPokemon: {
+                type: Number,
+                default: 0,
+                min: 0,
+            },  // Total de Pokémon capturados (se cuenta cada captura) - Se actualiza manual
+            
+            capturedPercentage: {
+                type: Number,
+                default: function() {
+                    return (this.capturedPokemon / 151) * 100;
+                },
+            },  // Porcentaje de captura (capturedPokemon/151) - Se calcula automáticamente
+            
+            capturedPokemonShiny: {
+                type: Number,
+                default: 0,
+                min: 0,
+            },  // Total de Pokémon shiny capturados - Se actualiza manual
         },
     ],
 }, {
-    timestamps: true,
+    timestamps: true,  // Agrega campos createdAt y updatedAt automáticamente
 });
 
-// Middleware para cifrar la contraseña antes de guardarla en la base de datos
+// Middleware para cifrar la contraseña antes de guardarla
 UserSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next(); // Solo cifrar si la contraseña ha sido modificada
 
     try {
-        // Generar un salt
-        const salt = await bcrypt.genSalt(10); // Puedes ajustar el número si quieres más seguridad
-        // Cifrar la contraseña antes de guardarla
-        this.password = await bcrypt.hash(this.password, salt);
-        console.log('Contraseña cifrada antes de guardar:', this.password);
+        const salt = await bcrypt.genSalt(10); // Salt de 10 rondas (ajustable)
+        this.password = await bcrypt.hash(this.password, salt); // Hash de la contraseña
         next();
     } catch (err) {
-        next(err); // Si hay un error en el proceso de hashing, pasa el error al siguiente middleware
+        next(err); // Manejo de errores
     }
 });
 
-// Aquí se crea el modelo de usuario
-module.exports = mongoose.model('user', UserSchema);
+// Exporta el modelo de usuario
+module.exports = mongoose.model('User', UserSchema);
