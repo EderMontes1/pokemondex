@@ -7,20 +7,12 @@ const progressTableBody = document.getElementById('progress-table-body');
 // Event Listeners
 gameEditionSelect.addEventListener('change', handleEditionChange);
 
-// Cargar progreso al iniciar
-document.addEventListener('DOMContentLoaded', () => {
-    loadInitialProgress();
-});
-
 // ==================== Funciones principales ====================
-async function loadInitialProgress() {
-    const defaultEdition = gameEditionSelect.value;
-    await loadGameProgress(defaultEdition);
-}
-
 async function handleEditionChange(e) {
     const edition = e.target.value;
-    await loadGameProgress(edition);
+    if (edition) { // Verifica que se haya seleccionado una opción válida
+        await loadGameProgress(edition);
+    }
 }
 
 async function loadGameProgress(edition) {
