@@ -4,7 +4,7 @@ const User = require('../models/user'); // Asegúrate de que la ruta al modelo U
 
 // Ruta para crear/obtener el progreso de una edición
 router.post('/', async (req, res) => {
-    const { username, gameEdition } = req.body;
+    const { username, gameEdition, startDate, endDate } = req.body;
 
     const usuario = await User.findOne({ username });
     if (!usuario) return res.status(404).json({ error: "Usuario no encontrado" });
@@ -16,8 +16,8 @@ router.post('/', async (req, res) => {
         // Crear nuevo progreso
         progreso = {
             gameEdition,
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: new Date(startDate),
+            endDate: new Date(endDate),
             hoursPlayed: 0,
             capturedPokemon: 0,
             capturedPokemonShiny: 0,
@@ -74,6 +74,42 @@ router.put('/capture', async (req, res) => {
         progreso.capturedPokemon = progreso.capturedPokemonList.length;
         progreso.capturedPercentage = (progreso.capturedPokemon / 151) * 100;
     }
+
+    await usuario.save();
+    res.json(progreso);
+});
+
+// Ruta para actualizar las fechas de inicio y fin
+router.put('/dates', async (req, res) => {
+    const { username, gameEdition, startDate, endDate } = req.body;
+
+    const usuario = await User.findOne({ username });
+    if (!usuario) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    const progreso = usuario.pokemonProgress.find(p => p.gameEdition === gameEdition);
+    if (!progreso) return res.status(404).json({ error: "Progreso no encontrado" });
+
+    progreso.startDate = new Date(startDate);
+    progreso.endDate = new Date(endDate);
+    progreso.totalDays = Math.ceil((progreso.endDate - progreso.startDate) / (1000 * 60 * 60 * 24));
+
+    await usuario.save();
+    res.json(progreso);
+});
+
+// Ruta para actualizar las horas jugadas
+router.put('/hours', async (req, res) => {
+    const { username, gameEdition, hoursPlayed } = req.body;
+
+    const usuario = await User.findOne({ username });
+    if (!usuario) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    const progreso = usuario.pokemonProgress.find(p => p.gameEdition === gameEdition);
+    if (!progreso) return res.status(404).json({ error: "Progreso no encontrado" });
+
+    progreso.hoursPlayed = hoursPlayed;
+    progreso.realDays = Math.ceil(hoursPlayed / 24);
+    progreso.averageHoursPerDay = progreso.totalDays > 0 ? hoursPlayed / progreso.totalDays : 0;
 
     await usuario.save();
     res.json(progreso);
