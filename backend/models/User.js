@@ -91,6 +91,16 @@ const UserSchema = new mongoose.Schema({
                 default: 0,
                 min: 0,
             },  // Total de Pokémon shiny capturados - Se actualiza manual
+
+            capturedPokemonList: {
+                type: [Number], // Lista de IDs de Pokémon capturados
+                default: [],
+            }, // Lista de Pokémon capturados - Se actualiza manualmente
+
+            capturedPokemonShinyList: {
+                type: [Number], // Lista de IDs de Pokémon Shiny capturados
+                default: [],
+            }, // Lista de Pokémon Shiny capturados - Se actualiza manualmente
         },
     ],
 }, {

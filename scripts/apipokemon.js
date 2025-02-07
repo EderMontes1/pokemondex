@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             pokemonCard.innerHTML = `
                 <p class="font-bold">#${index + 1} ${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</p>
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png" alt="${pokemon.name}" class="w-16 h-16 mx-auto">
-                <input type="checkbox" id="pokemon-${index + 1}" class="mt-2"> Captured
+                <input type="checkbox" id="pokemon-${index + 1}" class="mt-2"> Capturado
                 <input type="checkbox" id="pokemon-${index + 1}" class="mt-2"> Shiny
             `;
             pokemonListContainer.appendChild(pokemonCard);

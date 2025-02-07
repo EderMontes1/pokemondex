@@ -19,6 +19,7 @@ async function loadGameProgress(edition) {
     try {
         const progressData = await fetchProgressData(edition); // Llama a tu backend
         renderProgressTable(progressData);
+        renderPokemonList(progressData.capturedPokemonList, progressData.capturedPokemonShinyList); // Renderiza la lista de Pokémon capturados
     } catch (error) {
         if (error.status === 400 || error.status === 404) {
             await createNewProgress(edition);
@@ -49,6 +50,31 @@ function renderProgressTable(data) {
 function formatDate(dateString) {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('es-ES', options);
+}
+
+// Renderiza la lista de Pokémon capturados
+async function renderPokemonList(capturedPokemonList, capturedPokemonShinyList) {
+    const pokemonListContainer = document.getElementById('pokemon-list');
+    pokemonListContainer.innerHTML = '';
+
+    for (let i = 1; i <= 151; i++) {
+        const pokemonData = await fetchPokemonData(i);
+        const pokemonCard = document.createElement('div');
+        pokemonCard.className = 'p-4 border border-gray-300 rounded-lg shadow-sm text-center';
+        pokemonCard.innerHTML = `
+            <p class="font-bold">#${i} ${pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1)}</p>
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png" alt="${pokemonData.name}" class="w-16 h-16 mx-auto">
+            <input type="checkbox" id="pokemon-${i}" class="mt-2" ${capturedPokemonList.includes(i) ? 'checked' : ''} onclick="capturePokemon(${i}, this.checked, false)"> Capturado
+            <input type="checkbox" id="pokemon-shiny-${i}" class="mt-2" ${capturedPokemonShinyList.includes(i) ? 'checked' : ''} onclick="capturePokemon(${i}, this.checked, true)"> Shiny
+        `;
+        pokemonListContainer.appendChild(pokemonCard);
+    }
+}
+
+async function fetchPokemonData(id) {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    if (!response.ok) throw new Error('Error fetching Pokémon data');
+    return response.json();
 }
 
 // ==================== Comunicación con Backend ====================
@@ -84,4 +110,22 @@ async function createNewProgress(edition) {
         
         await loadGameProgress(edition);
     }
+}
+
+async function capturePokemon(pokemonId, captured, shiny) {
+    const username = localStorage.getItem('username');
+    const edition = gameEditionSelect.value;
+    const response = await fetch('http://localhost:5000/api/progress/capture', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ username, gameEdition: edition, pokemonId, captured, shiny })
+    });
+
+    if (!response.ok) throw response;
+
+    const progressData = await response.json();
+    renderProgressTable(progressData);
 }

@@ -230,14 +230,16 @@ h1{
 
 /* Tamaño de las imágenes */
 #pokemon-list img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   margin-bottom: 0.5rem; /* Espacio debajo de la imagen */
 }
 
 /* Checkbox y etiqueta Captured */
 #pokemon-list input[type="checkbox"] {
   margin-top: 0.1rem; /* Espacio encima del checkbox */
+  transform: scale(1.7);
+  margin-bottom: 0.5rem;
 }
 
 /* Estilo para el nombre del Pokémon */
