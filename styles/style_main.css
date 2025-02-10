@@ -185,21 +185,6 @@ h1{
   color: #2c3e50;
 }
 
-/* Botón de guardar progreso */
-#saveProgressBtn {
-  background-color: #27ae60;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-#saveProgressBtn:hover {
-  background-color: #219a52;
-}
-
 
 
 
@@ -222,11 +207,12 @@ h1{
   justify-content: center; /* Centra contenido verticalmente */
   border: 1px solid #000000; /* Borde para efecto de rejilla */
   border-radius: 8px; /* Bordes redondeados */
-  background-color: #daecf7; /* Fondo claro */
+  /* background-color: #6af894; */
   padding: 0.5rem; /* Espaciado interno */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombras ligeras */
   text-align: center; /* Texto centrado */
 }
+
 
 /* Tamaño de las imágenes */
 #pokemon-list img {

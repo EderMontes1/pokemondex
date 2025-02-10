@@ -35,47 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const username = await getUsernameFromServer();
     document.getElementById('username').textContent = username; // Actualizamos el nombre de usuario en el DOM
 
-    // Fetch Pokemon list from API
-    const fetchPokemon = async () => {
-        try {
-            const responseGen1 = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=151'); // Ajusta para diferentes generaciones
-            const pokemonList = responseGen1.data.results;
 
-            // Unir ambas listas y pasarla a la función de renderizado
-            const combinedPokemonList = [...pokemonList];
-
-            renderPokemonList(combinedPokemonList);
-        } catch (error) {
-            console.error('Error fetching Pokemon:', error);
-        }
-    };
-
-    // Renderizar la lista de Pokémon en el grid
-    const renderPokemonList = (pokemonList) => {
-        const pokemonListContainer = document.getElementById('pokemon-list');
-        pokemonListContainer.innerHTML = '';
-
-        pokemonList.forEach((pokemon, index) => {
-            // Crear separación entre generaciones
-            if (index === 151) {
-                const separator = document.createElement('div');
-                separator.className = 'w-full my-4 text-center';
-                separator.innerHTML = '<hr><h2 class="font-bold text-lg mt-2">Segunda Generación</h2><hr>';
-                pokemonListContainer.appendChild(separator);
-            }
-
-            // Crear las tarjetas de Pokémon
-            const pokemonCard = document.createElement('div');
-            pokemonCard.className = 'p-4 border border-gray-300 rounded-lg shadow-sm text-center';
-            pokemonCard.innerHTML = `
-                <p class="font-bold">#${index + 1} ${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</p>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png" alt="${pokemon.name}" class="w-16 h-16 mx-auto">
-                <input type="checkbox" id="pokemon-${index + 1}" class="mt-2"> Capturado
-                <input type="checkbox" id="pokemon-${index + 1}" class="mt-2"> Shiny
-            `;
-            pokemonListContainer.appendChild(pokemonCard);
-        });
-    };
 
     // Initial fetch
     await fetchPokemon();

@@ -1,4 +1,4 @@
-// import { fetchPokemonData } from './apipokemon.js'; // Asumiendo que exportas funciones en tu API
+
 
 // Elementos del DOM
 const gameEditionSelect = document.getElementById('gameEditionSelect');
@@ -60,12 +60,23 @@ async function renderPokemonList(capturedPokemonList, capturedPokemonShinyList) 
     for (let i = 1; i <= 151; i++) {
         const pokemonData = await fetchPokemonData(i);
         const pokemonCard = document.createElement('div');
-        pokemonCard.className = 'p-4 border border-gray-300 rounded-lg shadow-sm text-center';
+        pokemonCard.className = 'card-pokemon';
+
+ 
+        // Establecemos el color de fondo según si está capturado o shiny (Esto es para casillas previamente ya con check activado)
+        if (capturedPokemonList.includes(i)) {
+            pokemonCard.style.backgroundColor = '#6af894';  // Color verde claro para capturado normal
+        } else {
+            pokemonCard.style.backgroundColor = '#f7c0c0';  // Color blanco para Pokémon no capturados
+        }
+
+
+
         pokemonCard.innerHTML = `
             <p class="font-bold">#${i} ${pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1)}</p>
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png" alt="${pokemonData.name}" class="w-16 h-16 mx-auto">
-            <input type="checkbox" id="pokemon-${i}" class="mt-2" ${capturedPokemonList.includes(i) ? 'checked' : ''} onclick="capturePokemon(${i}, this.checked, false)"> Capturado
-            <input type="checkbox" id="pokemon-shiny-${i}" class="mt-2" ${capturedPokemonShinyList.includes(i) ? 'checked' : ''} onclick="capturePokemon(${i}, this.checked, true)"> Shiny
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png" alt="${pokemonData.name}" class="sprites-pokemon">
+            <input type="checkbox" id="pokemon-${i}" class="pokemon-normal" ${capturedPokemonList.includes(i) ? 'checked' : ''} onclick="capturePokemon(${i}, this.checked, false)"> Capturado
+            <input type="checkbox" id="pokemon-shiny-${i}" class="pokemon-shiny" ${capturedPokemonShinyList.includes(i) ? 'checked' : ''} onclick="capturePokemon(${i}, this.checked, true)"> Shiny
         `;
         pokemonListContainer.appendChild(pokemonCard);
     }
