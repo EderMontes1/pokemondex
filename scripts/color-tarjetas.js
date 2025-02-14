@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     pokemonListContainer.addEventListener('change', (event) => {
         // Verificamos si el cambio fue en un checkbox de capturado o shiny
-        if (event.target.matches('.pokemon-normal, .pokemon-shiny')) {
+        if (event.target.matches('.pokemon-normal')) {
             // Encontramos el div más cercano que contiene el checkbox
             const card = event.target.closest('.card-pokemon');
             

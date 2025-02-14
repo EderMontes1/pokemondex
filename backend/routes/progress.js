@@ -79,4 +79,47 @@ router.put('/capture', async (req, res) => {
     res.json(progreso);
 });
 
+// Ruta para actualizar las horas jugadas
+router.put('/hours', async (req, res) => {
+    const { username, gameEdition, hoursPlayed } = req.body;
+
+    const usuario = await User.findOne({ username });
+    if (!usuario) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    const progreso = usuario.pokemonProgress.find(p => p.gameEdition === gameEdition);
+    if (!progreso) return res.status(404).json({ error: "Progreso no encontrado" });
+
+    progreso.hoursPlayed = hoursPlayed;
+    progreso.realDays = Math.ceil(hoursPlayed / 24);
+    progreso.averageHoursPerDay = progreso.totalDays > 0 ? hoursPlayed / progreso.totalDays : 0;
+
+    await usuario.save();
+    res.json(progreso);
+});
+
+// Ruta para actualizar las fechas de inicio y fin
+router.put('/dates', async (req, res) => {
+    const { username, gameEdition, startDate, endDate } = req.body;
+
+    const usuario = await User.findOne({ username });
+    if (!usuario) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    const progreso = usuario.pokemonProgress.find(p => p.gameEdition === gameEdition);
+    if (!progreso) return res.status(404).json({ error: "Progreso no encontrado" });
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (isNaN(start) || isNaN(end) || end < start) {
+        return res.status(400).json({ error: "Fechas inválidas" });
+    }
+
+    progreso.startDate = start;
+    progreso.endDate = end;
+    progreso.totalDays = Math.ceil((progreso.endDate - progreso.startDate) / (1000 * 60 * 60 * 24));
+
+    await usuario.save();
+    res.json(progreso);
+});
+
 module.exports = router;

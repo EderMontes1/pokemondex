@@ -1,5 +1,3 @@
-
-
 // Elementos del DOM
 const gameEditionSelect = document.getElementById('gameEditionSelect');
 const progressTableBody = document.getElementById('progress-table-body');
@@ -34,10 +32,10 @@ function renderProgressTable(data) {
     progressTableBody.innerHTML = `
         <tr>
             <td>${data.gameEdition}</td>
-            <td>${formatDate(data.startDate)}</td>
-            <td>${formatDate(data.endDate)}</td>
+            <td><input type="date" id="startDate" value="${data.startDate.split('T')[0]}" onchange="handleDateChange()"></td>
+            <td><input type="date" id="endDate" value="${data.endDate.split('T')[0]}" onchange="handleDateChange()"></td>
             <td>${data.totalDays}</td>
-            <td>${data.hoursPlayed}</td>
+            <td><input type="number" id="hoursPlayed" value="${data.hoursPlayed.toFixed(2)}" step="0.01" onchange="handleHoursPlayedChange()"></td>
             <td>${data.realDays}</td>
             <td>${data.averageHoursPerDay.toFixed(2)}</td>
             <td>${data.capturedPokemon}</td>
@@ -133,6 +131,63 @@ async function capturePokemon(pokemonId, captured, shiny) {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({ username, gameEdition: edition, pokemonId, captured, shiny })
+    });
+
+    if (!response.ok) throw response;
+
+    const progressData = await response.json();
+    renderProgressTable(progressData);
+}
+
+async function handleHoursPlayedChange() {
+    const edition = gameEditionSelect.value;
+    const hoursPlayed = parseFloat(document.getElementById('hoursPlayed').value);
+
+    if (edition && !isNaN(hoursPlayed)) {
+        await updateHoursPlayed(edition, hoursPlayed);
+        await loadGameProgress(edition);
+    }
+}
+
+// Añadimos la función updateHoursPlayed
+async function updateHoursPlayed(edition, hoursPlayed) {
+    const username = localStorage.getItem('username');
+    const response = await fetch('http://localhost:5000/api/progress/hours', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ username, gameEdition: edition, hoursPlayed })
+    });
+
+    if (!response.ok) throw response;
+
+    const progressData = await response.json();
+    renderProgressTable(progressData);
+}
+
+async function handleDateChange() {
+    const edition = gameEditionSelect.value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    if (edition && startDate && endDate) {
+        await updateGameDates(edition, startDate, endDate);
+        await loadGameProgress(edition);
+    }
+}
+
+// Añadimos la función updateGameDates
+async function updateGameDates(edition, startDate, endDate) {
+    const username = localStorage.getItem('username');
+    const response = await fetch('http://localhost:5000/api/progress/dates', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ username, gameEdition: edition, startDate, endDate })
     });
 
     if (!response.ok) throw response;
