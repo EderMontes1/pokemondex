@@ -93,7 +93,8 @@ async function fetchProgressData(edition) {
         console.error('Username is not available in localStorage');
         return;
     }
-    const response = await fetch(`http://localhost:5000/api/progress?username=${username}&gameEdition=${edition}`, {
+    /* const response = await fetch(`http://localhost:5000/api/progress?username=${username}&gameEdition=${edition}`, { */
+    const response = await fetch(`https://pokemondex-hz6s.onrender.com/api/progress?username=${username}&gameEdition=${edition}`, { 
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -106,7 +107,8 @@ async function fetchProgressData(edition) {
 async function createNewProgress(edition) {
     const username = localStorage.getItem('username'); // Asegúrate de que el username está almacenado en localStorage
     if (confirm(`¿Quieres empezar a trackear ${edition}?`)) {
-        const response = await fetch('http://localhost:5000/api/progress', {
+        /* const response = await fetch('http://localhost:5000/api/progress', { */
+            const response = await fetch('https://pokemondex-hz6s.onrender.com/api/progress', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -124,7 +126,8 @@ async function createNewProgress(edition) {
 async function capturePokemon(pokemonId, captured, shiny) {
     const username = localStorage.getItem('username');
     const edition = gameEditionSelect.value;
-    const response = await fetch('http://localhost:5000/api/progress/capture', {
+    /* const response = await fetch('http://localhost:5000/api/progress/capture', { */
+        const response = await fetch('https://pokemondex-hz6s.onrender.com/api/progress/capture', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -152,7 +155,8 @@ async function handleHoursPlayedChange() {
 // Añadimos la función updateHoursPlayed
 async function updateHoursPlayed(edition, hoursPlayed) {
     const username = localStorage.getItem('username');
-    const response = await fetch('http://localhost:5000/api/progress/hours', {
+    /* const response = await fetch('http://localhost:5000/api/progress/hours', { */
+    const response = await fetch('https://pokemondex-hz6s.onrender.com/api/progress/hours', { 
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -181,7 +185,8 @@ async function handleDateChange() {
 // Añadimos la función updateGameDates
 async function updateGameDates(edition, startDate, endDate) {
     const username = localStorage.getItem('username');
-    const response = await fetch('http://localhost:5000/api/progress/dates', {
+    const response = await fetch('https://pokemondex-hz6s.onrender.com/api/progress/dates', {
+        /* const response = await fetch('http://localhost:5000/api/progress/dates', { */
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

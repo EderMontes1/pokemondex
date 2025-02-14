@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Obtener el nombre de usuario desde el servidor
     const getUsernameFromServer = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/auth/user', {
+            /* const response = await fetch('http://localhost:5000/api/auth/user', { */
+                const response = await fetch('https://pokemondex-hz6s.onrender.com/api/auth/user', {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`, // Enviamos el token en el header
