@@ -1,3 +1,13 @@
+import config from '../config.js';
+
+const generations = {
+    'Blue': 151,
+    'Red': 151,
+    'Yellow': 151,
+    'Gold': 251,
+    // Añadir futuras generaciones aquí
+};
+
 // Elementos del DOM
 const gameEditionSelect = document.getElementById('gameEditionSelect');
 const progressTableBody = document.getElementById('progress-table-body');
@@ -45,30 +55,24 @@ function renderProgressTable(data) {
     `;
 }
 
-function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('es-ES', options);
-}
-
-// Renderiza la lista de Pokémon capturados
 async function renderPokemonList(capturedPokemonList, capturedPokemonShinyList) {
     const pokemonListContainer = document.getElementById('pokemon-list');
     pokemonListContainer.innerHTML = '';
 
-    for (let i = 1; i <= 151; i++) {
+    const edition = gameEditionSelect.value;
+    const totalPokemon = generations[edition] || 151; // Ajuste según la generación
+
+    for (let i = 1; i <= totalPokemon; i++) {
         const pokemonData = await fetchPokemonData(i);
         const pokemonCard = document.createElement('div');
         pokemonCard.className = 'card-pokemon';
 
- 
-        // Establecemos el color de fondo según si está capturado o shiny (Esto es para casillas previamente ya con check activado)
+        // Establecemos el color de fondo según si está capturado o shiny
         if (capturedPokemonList.includes(i)) {
             pokemonCard.style.backgroundColor = '#6af894';  // Color verde claro para capturado normal
         } else {
             pokemonCard.style.backgroundColor = '#f7c0c0';  // Color blanco para Pokémon no capturados
         }
-
-
 
         pokemonCard.innerHTML = `
             <p class="font-bold">#${i} ${pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1)}</p>
@@ -93,8 +97,7 @@ async function fetchProgressData(edition) {
         console.error('Username is not available in localStorage');
         return;
     }
-    /* const response = await fetch(`http://localhost:5000/api/progress?username=${username}&gameEdition=${edition}`, { */
-    const response = await fetch(`https://pokemondex-hz6s.onrender.com/api/progress?username=${username}&gameEdition=${edition}`, { 
+    const response = await fetch(`${config.apiUrl}/api/progress?username=${username}&gameEdition=${edition}`,  { 
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -107,8 +110,7 @@ async function fetchProgressData(edition) {
 async function createNewProgress(edition) {
     const username = localStorage.getItem('username'); // Asegúrate de que el username está almacenado en localStorage
     if (confirm(`¿Quieres empezar a trackear ${edition}?`)) {
-        /* const response = await fetch('http://localhost:5000/api/progress', { */
-            const response = await fetch('https://pokemondex-hz6s.onrender.com/api/progress', {
+        const response = await fetch(`${config.apiUrl}/api/progress`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -123,11 +125,11 @@ async function createNewProgress(edition) {
     }
 }
 
-async function capturePokemon(pokemonId, captured, shiny) {
+// Asegúrate de que capturePokemon esté disponible en el ámbito global
+window.capturePokemon = async function capturePokemon(pokemonId, captured, shiny) {
     const username = localStorage.getItem('username');
     const edition = gameEditionSelect.value;
-    /* const response = await fetch('http://localhost:5000/api/progress/capture', { */
-        const response = await fetch('https://pokemondex-hz6s.onrender.com/api/progress/capture', {
+    const response = await fetch(`${config.apiUrl}/api/progress/capture`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -140,7 +142,7 @@ async function capturePokemon(pokemonId, captured, shiny) {
 
     const progressData = await response.json();
     renderProgressTable(progressData);
-}
+};
 
 async function handleHoursPlayedChange() {
     const edition = gameEditionSelect.value;
@@ -155,8 +157,7 @@ async function handleHoursPlayedChange() {
 // Añadimos la función updateHoursPlayed
 async function updateHoursPlayed(edition, hoursPlayed) {
     const username = localStorage.getItem('username');
-    /* const response = await fetch('http://localhost:5000/api/progress/hours', { */
-    const response = await fetch('https://pokemondex-hz6s.onrender.com/api/progress/hours', { 
+    const response = await fetch(`${config.apiUrl}/api/progress/hours`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -185,8 +186,7 @@ async function handleDateChange() {
 // Añadimos la función updateGameDates
 async function updateGameDates(edition, startDate, endDate) {
     const username = localStorage.getItem('username');
-    const response = await fetch('https://pokemondex-hz6s.onrender.com/api/progress/dates', {
-        /* const response = await fetch('http://localhost:5000/api/progress/dates', { */
+    const response = await fetch(`${config.apiUrl}/api/progress/dates`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

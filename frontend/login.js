@@ -1,3 +1,5 @@
+/* import config from './config'
+
 document.querySelector('.form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -5,7 +7,7 @@ document.querySelector('.form').addEventListener('submit', async (event) => {
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('http://localhost:5000/api/auth/login', {
+        const response = await fetch(`${config.apiUrl}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,4 +28,4 @@ document.querySelector('.form').addEventListener('submit', async (event) => {
         console.error('Error en la solicitud:', error);
         alert('Error al iniciar sesión.');
     }
-});
+}); */

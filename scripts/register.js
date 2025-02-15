@@ -1,4 +1,5 @@
-
+import config from '../config.js'
+    
     document.querySelector(".form").addEventListener("submit", async (event) => {
         event.preventDefault(); // Previene que la página se recargue al enviar el formulario
 
@@ -16,7 +17,7 @@
 
         // Enviar los datos al backend
         try {
-            const response = await fetch('https://pokemondex-hz6s.onrender.com/api/auth/register', {
+            const response = await fetch(`${config.apiUrl}/api/auth/register`, {
                 /* const response = await fetch('http://localhost:5000/api/auth/register' || 'https://pokemondex-hz6s.onrender.com/api/auth/register', { */
                 method: 'POST',
                 headers: {

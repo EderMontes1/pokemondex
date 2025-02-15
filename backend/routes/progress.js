@@ -2,6 +2,20 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user'); // Asegúrate de que la ruta al modelo User sea correcta
 
+const TOTAL_POKEMON_GEN1 = 151;
+const TOTAL_POKEMON_GEN2 = 251; // Incluye la primera y la segunda generación
+
+// Configuración de generaciones
+const generations = {
+    'Blue': TOTAL_POKEMON_GEN1,
+    'Red': TOTAL_POKEMON_GEN1,
+    'Yellow': TOTAL_POKEMON_GEN1,
+    'Gold': TOTAL_POKEMON_GEN2,
+    
+    // Añadir futuras generaciones aquí
+};
+
+
 // Ruta para crear/obtener el progreso de una edición
 router.post('/', async (req, res) => {
     const { username, gameEdition } = req.body;
@@ -54,6 +68,8 @@ router.put('/capture', async (req, res) => {
     const progreso = usuario.pokemonProgress.find(p => p.gameEdition === gameEdition);
     if (!progreso) return res.status(404).json({ error: "Progreso no encontrado" });
 
+    const totalPokemon = generations[gameEdition] || TOTAL_POKEMON_GEN1; 
+
     if (shiny) {
         if (captured) {
             if (!progreso.capturedPokemonShinyList.includes(pokemonId)) {
@@ -72,7 +88,7 @@ router.put('/capture', async (req, res) => {
             progreso.capturedPokemonList = progreso.capturedPokemonList.filter(id => id !== pokemonId);
         }
         progreso.capturedPokemon = progreso.capturedPokemonList.length;
-        progreso.capturedPercentage = (progreso.capturedPokemon / 151) * 100;
+        progreso.capturedPercentage = (progreso.capturedPokemon / totalPokemon) * 100;
     }
 
     await usuario.save();
