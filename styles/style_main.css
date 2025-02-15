@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Pokemon Solid";
+  src: url("https://drive.google.com/uc?export=download&id=1EVRApMoYpxi12kH_ZzORwOGezMAaBEMY") format("woff2"),
+       url("https://drive.google.com/uc?export=download&id=1EVRApMoYpxi12kH_ZzORwOGezMAaBEMY") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
     margin:0;
     padding: 0;
