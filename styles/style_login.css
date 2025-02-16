@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Pokemon Solid";
-  src: url("/pokemondex/styles/Pokemon-Solid.woff") format("woff");
+  src: url("/pokemondex/styles/Pokemon-Solid.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap; /* Esto asegura que la fuente se cargue de forma eficiente */
@@ -19,7 +19,7 @@
     min-height: 100vh;
     max-width: 100%;
     overflow: hidden;
-    background-color: #fbff00;
+    background-color: #ffffff;
     text-align: center;
     background-image: url("./bg.png");
     background-size:cover ;
