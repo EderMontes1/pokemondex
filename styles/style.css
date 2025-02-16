@@ -214,7 +214,8 @@ button {
   @media (max-width: 500px){
 
 body{
-  max-width: 95%;
+  max-width: 80%;
+  margin: auto;
 }
 
     h1{
@@ -227,6 +228,6 @@ body{
 
 
   .text-apoyo-index{
-    padding-bottom: 50rem;
+    margin-top: 5rem;
   }
 }
