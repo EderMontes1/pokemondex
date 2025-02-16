@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Luckiest+Guy&family=Sono:wght@200..800&display=swap');
 
 * {
     margin:0;
@@ -22,7 +22,7 @@
 
 h1{
     margin-top: 3rem;
-    font-family: "Pokemon Solid";
+    font-family: 'Luckiest Guy', sans-serif;
     font-size: 60px;
     letter-spacing: 4px;
     
@@ -256,3 +256,128 @@ footer{
 }
 
 
+/* Media Querys para Celular */
+@media (max-width: 500px){
+
+  .logo_navbar{
+    width: 12%;
+    height: 12%;
+  }
+  
+    h1{
+      margin-top: 3rem;
+      font-family: 'Luckiest Guy', sans-serif;
+      font-size: 40px;
+      letter-spacing: 4px;
+   }
+  
+
+
+   .game-select {
+    margin: 0.1rem 0;
+    padding: 0.8rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .game-select h3 {
+    color: #000000;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  #gameEditionSelect {
+    padding: 8px 12px;
+    border: 2px solid #098ae0;
+    border-radius: 6px;
+    width: 200px;
+    font-size: 0.9rem;
+    color: #000000;
+  }
+  
+
+
+
+
+  /* Estilos generales de la tabla */
+  .progress-table {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow-x:auto; /* Para hacerla responsive */
+    font-size: 0.7rem;
+      
+  }
+  
+  .progress-table h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  /* Estilos de la tabla */
+  .progress-table table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 100%; /* Ancho mínimo para evitar compresión */
+  }
+  
+  .progress-table th, .progress-table td {
+    padding: 0.75rem; /* Espaciado dentro de las celdas */
+    border: 1px solid #ddd; /* Bordes de las celdas */
+    text-align: center; /* Alineación horizontal */
+    vertical-align: middle; /* Alineación vertical */
+  }
+  
+  #pokemon-list {
+    display: grid;
+    grid-template-columns: repeat(3, 7fr); /* 7 columnas */
+    gap: 0.5rem; /* Espacio entre tarjetas */
+    padding: 0.5rem;
+    width: 100%; /* Limita al 85% del ancho */
+    margin: 0 auto; /* Centra horizontalmente */
+  }
+  
+  
+  /* Estilo para cada tarjeta */
+  #pokemon-list > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra contenido horizontalmente */
+    justify-content: center; /* Centra contenido verticalmente */
+    border: 1px solid #000000; /* Borde para efecto de rejilla */
+    border-radius: 8px; /* Bordes redondeados */
+    /* background-color: #6af894; */
+    padding: 0.1rem; /* Espaciado interno */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombras ligeras */
+    text-align: center; /* Texto centrado */
+  }
+  
+  
+  /* Tamaño de las imágenes */
+  #pokemon-list img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 0.5rem; /* Espacio debajo de la imagen */
+  }
+  
+  /* Checkbox y etiqueta Captured */
+  #pokemon-list input[type="checkbox"] {
+    margin-top: 0.1rem; /* Espacio encima del checkbox */
+    transform: scale(1.7);
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Estilo para el nombre del Pokémon */
+  #pokemon-list p {
+    font-weight: bold;
+  }
+  
+  
+  }
+    
+  
+  
