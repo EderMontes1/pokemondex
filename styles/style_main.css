@@ -55,6 +55,56 @@ h1{
   background-color: #12294E;
 }
 
+/* Estilo del botón de logout */
+#logoutButton {
+  color: #f9dc5c; /* Color del texto similar al resto de la navbar */
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Elimina el borde por defecto */
+  cursor: pointer; /* Aparece como un botón interactivo */
+  font-size: 16px; /* Tamaño de la fuente */
+  font-weight: bold;
+  padding: 8px 16px; /* Espaciado dentro del botón */
+  position: relative; /* Necesario para posicionar los pseudo-elementos */
+  text-decoration: none; /* Elimina el subrayado si es un enlace */
+}
+
+/* Efecto de hover similar a los enlaces en el navbar */
+#logoutButton::before,
+#logoutButton::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  background-color: #39a0ed; /* Color del borde */
+  transition: width 0.6s ease; /* Transición suave */
+}
+
+#logoutButton::before { /* Línea superior (de derecha a izquierda) */
+  top: 0;
+  right: 50%;
+  width: 0%;
+  transform: translateX(50%);
+}
+
+#logoutButton::after { /* Línea inferior (de izquierda a derecha) */
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  transform: translateX(-50%);
+}
+
+#logoutButton:hover::before {
+  width: 100%; /* Expande la línea superior de derecha a izquierda */
+  right: 0;
+  transform: translateX(0);
+}
+
+#logoutButton:hover::after {
+  width: 100%; /* Expande la línea inferior de izquierda a derecha */
+  left: 0;
+  transform: translateX(0);
+}
+
+
 .logo_nav_container {
   display: flex; 
   justify-content: space-between;
