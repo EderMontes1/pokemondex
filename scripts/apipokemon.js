@@ -42,4 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initial fetch
     await fetchPokemon();
+
+    
+
 });

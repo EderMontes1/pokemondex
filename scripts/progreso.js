@@ -144,7 +144,7 @@ window.capturePokemon = async function capturePokemon(pokemonId, captured, shiny
     renderProgressTable(progressData);
 };
 
-async function handleHoursPlayedChange() {
+window.handleHoursPlayedChange = async function handleHoursPlayedChange() {
     const edition = gameEditionSelect.value;
     const hoursPlayed = parseFloat(document.getElementById('hoursPlayed').value);
 
@@ -172,7 +172,7 @@ async function updateHoursPlayed(edition, hoursPlayed) {
     renderProgressTable(progressData);
 }
 
-async function handleDateChange() {
+window.handleDateChange = async function handleDateChange() {
     const edition = gameEditionSelect.value;
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
