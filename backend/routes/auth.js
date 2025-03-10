@@ -65,8 +65,10 @@ router.post('/login', async (req, res) => {
         }
 
         // Comparar la contraseña ingresada con la almacenada
-        console.log('Contraseña ingresada:', password);
-        console.log('Contraseña almacenada:', user.password);
+       
+        /*  console.log('Contraseña ingresada:', password);
+        console.log('Contraseña almacenada:', user.password); */
+
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             console.log('Las contraseñas no coinciden');
