@@ -6,5 +6,5 @@ logoutButton.addEventListener('click', () => {
     localStorage.removeItem('username');
 
     // Redirigir al login
-    window.location.href = '/pokemondex/login.html';
+    window.location.href = 'https://pokemondex-nine.vercel.app/login.html';
 });
