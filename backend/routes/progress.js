@@ -70,7 +70,7 @@ router.put('/capture', async (req, res) => {
     const progreso = usuario.pokemonProgress.find(p => p.gameEdition === gameEdition);
     if (!progreso) return res.status(404).json({ error: "Progreso no encontrado" });
 
-    const totalPokemon = generations[gameEdition] || TOTAL_POKEMON_GEN1; 
+    const totalPokemon = generations[gameEdition] || TOTAL_POKEMON_GEN1 || TOTAL_POKEMON_GEN2; // Ajuste según la generación
 
     if (shiny) {
         if (captured) {
