@@ -11,6 +11,8 @@ const generations = {
     'Red': TOTAL_POKEMON_GEN1,
     'Yellow': TOTAL_POKEMON_GEN1,
     'Gold': TOTAL_POKEMON_GEN2,
+    'Silver': TOTAL_POKEMON_GEN2,
+    'Crystal': TOTAL_POKEMON_GEN2
     
     // Añadir futuras generaciones aquí
 };

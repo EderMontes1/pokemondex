@@ -375,7 +375,12 @@ footer{
 
   /* Estilos generales de la tabla */
   .progress-table {
-    margin: 1rem 0;
+
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+    margin: 2rem auto;
+  
     padding: 0.5rem;
     background-color: #fff;
     border-radius: 15px;
