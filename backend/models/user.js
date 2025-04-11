@@ -81,9 +81,10 @@ const UserSchema = new mongoose.Schema({
             
             capturedPercentage: {
                 type: Number,
-                default: function() {
+                default: 0,
+               /*  default: function() {
                     return (this.capturedPokemon / 151) * 100;
-                },
+                }, */
             },  // Porcentaje de captura (capturedPokemon/151) - Se calcula automáticamente
             
             capturedPokemonShiny: {
