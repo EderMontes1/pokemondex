@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs'); // Importa bcryptjs para cifrar contraseñas
 
 // Define el esquema del usuario
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({ 
     username: {
         type: String,
         required: true,
         unique: true,
         trim: true,        // Elimina espacios en blanco al inicio/final
-        minlength: 3,      // Longitud mínima de 3 caracteres
+        minlength: 4,      // Longitud mínima de 4 caracteres
     },
     email: {
         type: String,
@@ -21,11 +21,11 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 3,      // Longitud mínima de 6 caracteres
+        minlength: 3,      // Longitud mínima de 3 caracteres
     },
-    pokemonProgress: [
+    pokemonProgress: [ //Define un campo que es una lista (arreglo) de objetos. Cada objeto representa el progreso del usuario en una edición del juego.
         {
-            gameEdition: {
+            gameEdition: { 
                 type: String,
                 required: true,
             },  // La edición del juego (se introduce con un select)
@@ -82,10 +82,8 @@ const UserSchema = new mongoose.Schema({
             capturedPercentage: {
                 type: Number,
                 default: 0,
-               /*  default: function() {
-                    return (this.capturedPokemon / 151) * 100;
-                }, */
-            },  // Porcentaje de captura (capturedPokemon/151) - Se calcula automáticamente
+             
+            },  // Porcentaje de captura (capturedPokemon/numero de pokemon) - Se calcula automáticamente
             
             capturedPokemonShiny: {
                 type: Number,
@@ -110,14 +108,14 @@ const UserSchema = new mongoose.Schema({
 
 // Middleware para cifrar la contraseña antes de guardarla
 UserSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) return next(); // Solo cifrar si la contraseña ha sido modificada
+    if (!this.isModified('password')) return next(); // Solo cifra si la contraseña ha sido modificada
 
     try {
-        const salt = await bcrypt.genSalt(10); // Salt de 10 rondas (ajustable)
-        this.password = await bcrypt.hash(this.password, salt); // Hash de la contraseña
-        next();
+        const salt = await bcrypt.genSalt(10); // Genera un "salt" (valor aleatorio) para hacer la contraseña más segura
+        this.password = await bcrypt.hash(this.password, salt); // Cifra la contraseña usando el "salt"
+        next(); // Continúa con el guardado del usuario
     } catch (err) {
-        next(err); // Manejo de errores
+        next(err); // Maneja errores si algo falla durante el cifrado
     }
 });
 
