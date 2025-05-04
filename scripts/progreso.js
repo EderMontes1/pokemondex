@@ -6,7 +6,7 @@ const generations = {
     'Yellow': 151,
     'Gold': 251,
     'Silver': 251,
-    'Cristal': 251,
+    'Crystal': 251
     // Añadir futuras generaciones aquí
 };
 

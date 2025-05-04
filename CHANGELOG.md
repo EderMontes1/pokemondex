@@ -1,5 +1,8 @@
 # CHANGELOG POKEMONDEX
 
+## [1.0.2] - 2025-05-04
+### Changed
+- Corregido trackeo en Pokemon Cristal
 
 
 ## [1.0.1] - 2025-04-27
